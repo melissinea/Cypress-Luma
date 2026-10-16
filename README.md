@@ -1,26 +1,25 @@
-# Projeto de Testes Automatizados
+# Cypress-Luma
 
-Este projeto contém testes automatizados para os seguintes fluxos:
+End-to-end tests written with [Cypress](https://www.cypress.io) for the **Luma** Magento 2 demo store ([magento2-demo.magebit.com](https://magento2-demo.magebit.com/)).
 
-- Cadastro de Usuário
-- Login
-- Adicionar Produto ao Carrinho
-- Finalização de Compra
+## Scenarios
 
-## Instalação
+| Spec | Flow | Checks |
+|---|---|---|
+| `cadastro/cadastro.cy.js` | Customer sign-up | Account is created and *My Account* is shown |
+| `carrinho/adicionar_produto.cy.js` | Add product to cart | Size and color selection, success message, cart counter = 1 |
+| `carrinho/finalizar_compra.cy.js` | Full checkout | Product name, size and color in the cart, shipping form, payment, order confirmation |
+| `login/login.cy.js` | Login | Fills credentials; final step is paused because the store shows a CAPTCHA |
 
-1. Clone o repositório: `git clone <URL-do-Repositório>`
-2. Acesse a pasta do projeto: `cd <nome-do-projeto>`
-3. Instale as dependências: `npm install`
-
-## Execução dos Testes
-
-Para abrir a interface do Cypress e executar os testes interativamente:
+## Running
 
 ```bash
-npm run cypress:open
+npm install
+npx cypress open   # interactive
+npx cypress run    # headless
+```
 
+## Notes
 
-Para implementar os cenários opcionais, siga a mesma estrutura utilizada nos cenários principais, criando arquivos de teste separados para cada um deles na pasta `cypress/integration`.
-
-Após concluir todos os passos acima, seu projeto estará pronto com cenários de teste automatizados e documentação clara para instalação e execução. Isso facilitará para que iniciantes possam dar continuidade ao projeto de forma eficiente. Certifique-se de manter seus testes e documentação atualizados à medida que o projeto evolui.
+- The login test stops at `cy.pause()` because the demo store protects login with a CAPTCHA, which should not be bypassed in automation.
+- This was an early study project (2023). My current Playwright work, with Page Objects, fixtures and CI, is in **[playwright-qa-portfolio](https://github.com/melissinea/playwright-qa-portfolio)**.
